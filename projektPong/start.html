@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <title>gra pong</title>
+
+ <style>
+  html {
+  
+   --tableWidth: 700px;
+   --tableHeight: 400px;
+   --tableColor: #333;
+   
+   --paddleWidth: 25px;
+   --paddleHeight: 80px;
+   --paddleColor: yellow;
+  
+   --ballSize: 20px;
+   --ballColor: white;
+   /* pozycja */
+   --paddleFromEdge: 50px;
+
+   --animationTime: 5s;
+  }
+
+  .table,
+  .ball,
+  .paddle,
+  .result {
+   position: absolute;
+  }
+
+  .table {
+   width: var(--tableWidth);
+   height: var(--tableHeight);
+   background-color: var(--tableColor);
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+  }
+
+  .ball {
+   width: var(--ballSize);
+   height: var(--ballSize);
+   top: calc(50% - var(--ballSize)/2);
+   left: calc(50% - var(--ballSize)/2);
+   background-color: var(--ballColor);
+   border-radius: 50%;
+
+
+   animation: ballMove var(--animationTime) linear both;
+
+  }
+
+  .paddle {
+   width: var(--paddleWidth);
+   height: var(--paddleHeight);
+   background-color: var(--paddleColor);
+  }
+
+
+  .player {
+   top: calc(50% - var(--paddleHeight)/2);
+
+   left: var(--paddleFromEdge);
+   animation: playerPaddle var(--animationTime) linear both;
+  }
+
+ 
+
+  .ai {
+   top: calc(50% - var(--paddleHeight)/2);
+   right: var(--paddleFromEdge);
+   animation: aiPaddle var(--animationTime) linear both;
+  }
+
+  .result {
+
+   width: 100%;
+   left: 0;
+   top: 10%;
+   text-transform: uppercase;
+   text-align: center;
+   font-family: sans-serif;
+
+   color: black;
+   transform: scale(0);
+   animation: showResult 1s calc(var(--animationTime) + 1s) both;
+   
+  }
+
+
+  @keyframes ballMove {
+   15% {
+     top: calc(80% - var(--paddleHeight));
+     left: calc(var(--tableWidth) - var(--paddleFromEdge) - var(--paddleWidth) - var(--ballSize)); 
+  
+   }
+   32%{
+    top: calc(var(--tableHeight) - var(--ballSize));
+    left: calc(var(--tableWidth) - var(--ballSize) - var(--paddleWidth) - 30%);
+   }
+   60%{
+     top: calc(2% + var(--paddleHeight));
+     left: calc(var(--paddleFromEdge) + var(--paddleWidth)); 
+   }
+    82%{
+    
+    top:  0;
+    left: calc(var(--tableWidth) - 25%);
+   }
+   100%{
+
+    top: calc(var(--tableHeight) - 85%);
+    left: calc(var(--tableWidth) + 10%);
+   }
+  }
+ 
+  @keyframes playerPaddle {
+    0%{
+      }
+    30.9%{
+      top: calc(90% - var(--paddleHeight));
+      left: var(--paddleFromEdge);
+    }
+    60%{
+      top: calc(2% + var(--paddleHeight));
+      left: var(--paddleFromEdge);
+    }
+    100%{
+
+    }
+  }
+
+  @keyframes aiPaddle {
+    0%{
+    }
+    60.9%{
+      top:calc(100% - var(--paddleHeight));
+      right: var(--paddleFromEdge);
+    }
+    100%{
+      top:calc(-12% + var(--paddleHeight));
+      right: var(--paddleFromEdge);
+    }
+  }
+
+
+  @keyframes showResult {
+    0%{}
+
+    100%{
+      transform: scale(2);
+
+    }
+  }
+ </style>
+</head>
+
+<body>
+ <div class="table">
+  <div class="ball"></div>
+  <div class="paddle player"></div>
+  <div class="paddle ai"></div>
+ </div>
+ <h1 class="result">wygrałeś!</h1>
+</body>
+
+</html>
